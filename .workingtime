@@ -24,7 +24,9 @@
     },
     "data": [
         {
-            "config": false,
+            "config": {
+                "showIdle": false
+            },
             "user": "edskate",
             "dailySessions": [
                 {
@@ -111,7 +113,7 @@
                                 "id": "f79b61da-c7ef-4c15-86b9-c26ab8ed814d",
                                 "duration": 1612972,
                                 "idle": 23750241,
-                                "state": "Idle",
+                                "state": "Ended",
                                 "durations": [
                                     {
                                         "id": "68fcbe23-fbdb-4580-96dc-a9ee5e72ade5",
@@ -319,6 +321,98 @@
                                 ]
                             },
                             "actionType": "Idle"
+                        },
+                        {
+                            "sessionInfo": {
+                                "id": "2fd5972b-8fed-4b03-af3c-41c4b4028aea",
+                                "duration": 1326090,
+                                "idle": 1793934,
+                                "state": "Ongoing",
+                                "durations": [
+                                    {
+                                        "id": "fb8eab39-07c1-4d22-9851-6db79fa7c5b7",
+                                        "state": "Ongoing",
+                                        "begin": 1786964259489,
+                                        "end": 1786964259489,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "e417db86-b5be-44c6-8177-fac9f7e34510",
+                                        "state": "Idle",
+                                        "begin": 1786964259488,
+                                        "end": 1786964259489,
+                                        "duration": 1
+                                    },
+                                    {
+                                        "id": "8cb6b945-b1eb-4f16-9a13-3e2bcad11272",
+                                        "state": "Ongoing",
+                                        "begin": 1786963960107,
+                                        "end": 1786964259488,
+                                        "duration": 299381
+                                    },
+                                    {
+                                        "id": "cecdff19-00be-491f-a5ce-6bac8692f581",
+                                        "state": "Idle",
+                                        "begin": 1786963959453,
+                                        "end": 1786963960107,
+                                        "duration": 654
+                                    },
+                                    {
+                                        "id": "c4426eb6-a5b8-4613-9b24-5e73632968a3",
+                                        "state": "Ongoing",
+                                        "begin": 1786963840118,
+                                        "end": 1786963959453,
+                                        "duration": 119335
+                                    },
+                                    {
+                                        "id": "fae87a21-a878-41e0-b4ac-55d73d80a1f1",
+                                        "state": "Idle",
+                                        "begin": 1786963791054,
+                                        "end": 1786963840118,
+                                        "duration": 49064
+                                    },
+                                    {
+                                        "id": "0af0fea2-13ae-48dc-a0d4-e88c20b67f36",
+                                        "state": "Ongoing",
+                                        "begin": 1786963776171,
+                                        "end": 1786963791054,
+                                        "duration": 14883
+                                    },
+                                    {
+                                        "id": "531a361f-eb51-4c6a-a4ad-b85b6c21dbc0",
+                                        "state": "Idle",
+                                        "begin": 1786963359443,
+                                        "end": 1786963776171,
+                                        "duration": 416728
+                                    },
+                                    {
+                                        "id": "f3717f95-6bec-48f5-94e1-1d5727f49455",
+                                        "state": "Ongoing",
+                                        "begin": 1786963060837,
+                                        "end": 1786963359443,
+                                        "duration": 298606
+                                    },
+                                    {
+                                        "id": "c376e18e-7708-4926-b0f8-76e086f6dd82",
+                                        "state": "Idle",
+                                        "begin": 1786963059440,
+                                        "end": 1786963060837,
+                                        "duration": 1397
+                                    },
+                                    {
+                                        "id": "7882baae-6c95-47f9-9a24-b273db0badf8",
+                                        "state": "Ongoing",
+                                        "begin": 1786962765509,
+                                        "end": 1786963059440,
+                                        "duration": 293931
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations",
+                                    ".htm"
+                                ]
+                            },
+                            "actionType": "Codding"
                         }
                     ]
                 }
