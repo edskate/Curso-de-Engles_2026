@@ -24,9 +24,7 @@
     },
     "data": [
         {
-            "config": {
-                "showIdle": false
-            },
+            "config": false,
             "user": "edskate",
             "dailySessions": [
                 {
@@ -600,6 +598,89 @@
                                 ],
                                 "filesExt": [
                                     ".html"
+                                ]
+                            },
+                            "actionType": "Idle"
+                        }
+                    ]
+                },
+                {
+                    "date": "Tue Aug 18 2026",
+                    "sessions": [
+                        {
+                            "sessionInfo": {
+                                "id": "9b36dcb1-8d5b-4713-a16f-be69c16c1591",
+                                "duration": 32324,
+                                "idle": 32324,
+                                "state": "Ongoing",
+                                "durations": [
+                                    {
+                                        "id": "a9b159bd-4d1d-470a-8684-bdebdd9aaa39",
+                                        "state": "Ongoing",
+                                        "begin": 1787065239641,
+                                        "end": 1787065239641,
+                                        "duration": 0
+                                    }
+                                ],
+                                "filesExt": [
+                                    "",
+                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations"
+                                ]
+                            },
+                            "actionType": "Codding"
+                        },
+                        {
+                            "sessionInfo": {
+                                "id": "5374752e-0c39-4907-8890-030efc49a476",
+                                "duration": 82468,
+                                "idle": 3124786,
+                                "state": "Idle",
+                                "durations": [
+                                    {
+                                        "id": "723f8897-f51f-44bd-b2b9-4145675afd5e",
+                                        "state": "Idle",
+                                        "begin": 1787066772781,
+                                        "end": 1787066772781,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "552a9e72-6eed-4dfd-b9b6-c23156539f83",
+                                        "state": "Ongoing",
+                                        "begin": 1787066748503,
+                                        "end": 1787066772780,
+                                        "duration": 24277
+                                    },
+                                    {
+                                        "id": "dcba91cb-131a-41cf-83f2-fb153487b3c5",
+                                        "state": "Idle",
+                                        "begin": 1787066726342,
+                                        "end": 1787066748503,
+                                        "duration": 22161
+                                    },
+                                    {
+                                        "id": "4a34020f-70e8-4448-84e0-fec87d88e915",
+                                        "state": "Ongoing",
+                                        "begin": 1787066688983,
+                                        "end": 1787066726342,
+                                        "duration": 37359
+                                    },
+                                    {
+                                        "id": "69842c00-66db-4d3c-a73d-34e77961b978",
+                                        "state": "Idle",
+                                        "begin": 1787065292797,
+                                        "end": 1787066688983,
+                                        "duration": 1396186
+                                    },
+                                    {
+                                        "id": "fd943d56-53db-4fda-bcc5-3193e41a0566",
+                                        "state": "Ongoing",
+                                        "begin": 1787065271965,
+                                        "end": 1787065292797,
+                                        "duration": 20832
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".md"
                                 ]
                             },
                             "actionType": "Idle"
