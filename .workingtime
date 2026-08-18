@@ -533,6 +533,76 @@
                                 ]
                             },
                             "actionType": "Idle"
+                        },
+                        {
+                            "sessionInfo": {
+                                "id": "08c812e5-b1ec-4a63-b24d-083c68e2f556",
+                                "duration": 463165,
+                                "idle": 899955,
+                                "state": "Idle",
+                                "durations": [
+                                    {
+                                        "id": "e2630732-a230-4c82-9149-1d10bc70ae4f",
+                                        "state": "Idle",
+                                        "begin": 1787018937620,
+                                        "end": 1787018937620,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "33507c9f-76f8-4433-bf8f-8e674bea13a2",
+                                        "state": "Ongoing",
+                                        "begin": 1787018889396,
+                                        "end": 1787018937620,
+                                        "duration": 48224
+                                    },
+                                    {
+                                        "id": "2447c58b-7bb8-4bd8-b941-ffc7dee7ea34",
+                                        "state": "Idle",
+                                        "begin": 1787018780788,
+                                        "end": 1787018889396,
+                                        "duration": 108608
+                                    },
+                                    {
+                                        "id": "47484f8f-7c8d-44fa-8854-e47b0bb56d63",
+                                        "state": "Ongoing",
+                                        "begin": 1787018741065,
+                                        "end": 1787018780788,
+                                        "duration": 39723
+                                    },
+                                    {
+                                        "id": "68f6003e-5a30-4cfc-a4db-4097bf0f1d17",
+                                        "state": "Idle",
+                                        "begin": 1787018717512,
+                                        "end": 1787018741065,
+                                        "duration": 23553
+                                    },
+                                    {
+                                        "id": "9075e48e-068b-4bcc-9b7c-14236a5ff3d2",
+                                        "state": "Ongoing",
+                                        "begin": 1787018642203,
+                                        "end": 1787018717511,
+                                        "duration": 75308
+                                    },
+                                    {
+                                        "id": "32305490-9ed1-47ea-b6d2-ed4239bc5738",
+                                        "state": "Idle",
+                                        "begin": 1787018641974,
+                                        "end": 1787018642203,
+                                        "duration": 229
+                                    },
+                                    {
+                                        "id": "b156a088-2f46-4632-9aea-2772a6f477eb",
+                                        "state": "Ongoing",
+                                        "begin": 1787018342064,
+                                        "end": 1787018641974,
+                                        "duration": 299910
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".html"
+                                ]
+                            },
+                            "actionType": "Idle"
                         }
                     ]
                 }
