@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Basics - Pronomes e Verbos</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#172033;
+      --card2:#1e293b;
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --accent:#38bdf8;
+      --accent2:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --border:#334155;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(135deg,#0f172a,#111827);
+      color:var(--text);
+      min-height:100vh;
+    }
+    header{
+      padding:32px 20px;
+      text-align:center;
+      background:rgba(15,23,42,.88);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:5;
+      backdrop-filter:blur(10px);
+    }
+    h1{margin:0 0 8px;font-size:clamp(26px,5vw,44px)}
+    .subtitle{color:var(--muted);margin:0}
+    .container{max-width:1100px;margin:auto;padding:24px}
+    .controls{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      display:grid;
+      gap:14px;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      margin-bottom:24px;
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
+    }
+    label{font-weight:700;display:block;margin-bottom:6px}
+    select,input[type="range"]{
+      width:100%;
+      padding:10px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#0b1220;
+      color:white;
+    }
+    button{
+      border:0;
+      border-radius:10px;
+      padding:10px 14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    button:hover{transform:translateY(-1px);filter:brightness(1.08)}
+    .btn-speak{background:var(--accent);color:#06283a}
+    .btn-repeat{background:var(--accent2);color:#052e16}
+    .btn-stop{background:var(--danger);color:white}
+    .section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow:0 12px 30px rgba(0,0,0,.18);
+    }
+    .section h2{margin-top:0;color:#7dd3fc}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:14px;
+    }
+    .lesson-card{
+      background:var(--card2);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px;
+    }
+    .english{font-size:20px;font-weight:800;margin-bottom:6px}
+    .portuguese{color:var(--muted);margin-bottom:12px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .mini{padding:8px 11px;font-size:13px}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:12px;
+    }
+    th,td{padding:12px;border-bottom:1px solid var(--border);text-align:left}
+    th{background:#0b1220;color:#7dd3fc}
+    tr:hover td{background:#1b2940}
+    .quiz{
+      margin-top:16px;
+      background:#0b1220;
+      padding:16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+    }
+    .quiz input{
+      width:100%;
+      padding:11px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#111827;
+      color:white;
+      margin:8px 0 10px;
+    }
+    .result{font-weight:800;margin-top:8px}
+    .correct{color:#4ade80}
+    .wrong{color:#f87171}
+    .progress-wrap{
+      margin:14px 0 0;
+      background:#0b1220;
+      border-radius:999px;
+      overflow:hidden;
+      height:14px;
+      border:1px solid var(--border);
+    }
+    .progress{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#38bdf8,#22c55e);
+      transition:.3s;
+    }
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:25px;
+      font-size:14px;
+    }
+    .highlight{
+      border-left:4px solid var(--warn);
+      padding-left:12px;
+      color:#fde68a;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🎧 English Basics</h1>
+  <p class="subtitle">Pronomes • To Be • To Have • To Do • Conectivos • Preposições</p>
+</header>
+
+<main class="container">
+  <section class="controls">
+    <div>
+      <label for="voice">🗣️ Voz</label>
+      <select id="voice"></select>
+    </div>
+    <div>
+      <label for="rate">⚡ Velocidade: <span id="rateValue">0.9</span>x</label>
+      <input id="rate" type="range" min="0.5" max="1.5" step="0.1" value="0.9">
+    </div>
+    <div>
+      <label for="repeatCount">🔁 Repetições</label>
+      <select id="repeatCount">
+        <option value="1">1 vez</option>
+        <option value="2">2 vezes</option>
+        <option value="3" selected>3 vezes</option>
+        <option value="5">5 vezes</option>
+      </select>
+    </div>
+    <div>
+      <label>⏹ Controle</label>
+      <button class="btn-stop" onclick="stopSpeech()">Parar narração</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>1. Pronomes pessoais</h2>
+    <table>
+      <thead>
+        <tr><th>Inglês</th><th>Português</th><th>Exemplo</th><th>Ouvir</th></tr>
+      </thead>
+      <tbody id="pronounTable"></tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>2. Verbo TO BE — ser / estar</h2>
+    <div class="grid" id="toBeCards"></div>
+  </section>
+
+  <section class="section">
+    <h2>3. Verbo TO HAVE — ter</h2>
+    <div class="grid" id="toHaveCards"></div>
+  </section>
+
+  <section class="section">
+    <h2>4. Verbo TO DO — fazer</h2>
+    <div class="grid" id="toDoCards"></div>
+  </section>
+
+  <section class="section">
+    <h2>5. Conectivos simples</h2>
+    <div class="grid" id="connectorsCards"></div>
+  </section>
+
+  <section class="section">
+    <h2>6. Preposições básicas</h2>
+    <div class="grid" id="prepositionsCards"></div>
+  </section>
+
+  <section class="section">
+    <h2>7. Treino em sequência</h2>
+    <p class="highlight">Clique em “Treinar sequência” para ouvir as frases do mais fácil para o mais completo.</p>
+    <div class="actions">
+      <button class="btn-speak" onclick="practiceSequence()">▶ Treinar sequência</button>
+      <button class="btn-repeat" onclick="repeatSequence()">🔁 Repetir sequência</button>
+    </div>
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+  </section>
+
+  <section class="section">
+    <h2>8. Exercício rápido</h2>
+
+    <div class="quiz">
+      <strong>1) Complete: I ___ ready.</strong>
+      <input id="q1" placeholder="Digite sua resposta">
+      <button class="btn-speak" onclick="checkAnswer('q1','am','r1')">Corrigir</button>
+      <div id="r1" class="result"></div>
+    </div>
+
+    <div class="quiz">
+      <strong>2) Complete: She ___ a car.</strong>
+      <input id="q2" placeholder="Digite sua resposta">
+      <button class="btn-speak" onclick="checkAnswer('q2','has','r2')">Corrigir</button>
+      <div id="r2" class="result"></div>
+    </div>
+
+    <div class="quiz">
+      <strong>3) Complete: ___ you speak English?</strong>
+      <input id="q3" placeholder="Digite sua resposta">
+      <button class="btn-speak" onclick="checkAnswer('q3','do','r3')">Corrigir</button>
+      <div id="r3" class="result"></div>
+    </div>
+
+    <div class="quiz">
+      <strong>4) Complete: I study ___ I want to learn.</strong>
+      <input id="q4" placeholder="Digite sua resposta">
+      <button class="btn-speak" onclick="checkAnswer('q4','because','r4')">Corrigir</button>
+      <div id="r4" class="result"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Desenvolvido para estudo de inglês com narração usando a voz do navegador.
+</footer>
+
+<script>
+const pronouns = [
+  ["I","eu","I am ready."],
+  ["You","você / vocês","You are here."],
+  ["He","ele","He is my friend."],
+  ["She","ela","She is happy."],
+  ["It","ele/ela para coisas ou animais","It is beautiful."],
+  ["We","nós","We are ready."],
+  ["They","eles/elas","They are here."]
+];
+
+const toBe = [
+  ["I am","Eu sou / estou","I am happy."],
+  ["You are","Você é / está","You are ready."],
+  ["He is","Ele é / está","He is my friend."],
+  ["She is","Ela é / está","She is happy."],
+  ["We are","Nós somos / estamos","We are friends."],
+  ["They are","Eles são / estão","They are at home."]
+];
+
+const toHave = [
+  ["I have","Eu tenho","I have a question."],
+  ["You have","Você tem","You have time."],
+  ["He has","Ele tem","He has a book."],
+  ["She has","Ela tem","She has a car."],
+  ["We have","Nós temos","We have time."],
+  ["They have","Eles têm","They have a house."]
+];
+
+const toDo = [
+  ["I do","Eu faço","I do my homework."],
+  ["You do","Você faz","What do you do?"],
+  ["He does","Ele faz","He does his homework."],
+  ["She does","Ela faz","She does her homework."],
+  ["Do you...?","Você...?","Do you speak English?"],
+  ["They do","Eles fazem","They do their work."]
+];
+
+const connectors = [
+  ["and","e","I sing and dance."],
+  ["but","mas","I am tired, but I am happy."],
+  ["or","ou","Coffee or water?"],
+  ["because","porque","I study because I want to learn."],
+  ["so","então / por isso","I am tired, so I will rest."],
+  ["then","então / depois","I study, then I practice."]
+];
+
+const prepositions = [
+  ["in","em / dentro de","The book is in the bag."],
+  ["on","em / sobre","The book is on the table."],
+  ["at","em","I am at home."],
+  ["to","para","I go to school."],
+  ["from","de / vindo de","I am from Brazil."],
+  ["with","com","Come with me."],
+  ["for","para","This is for you."],
+  ["under","embaixo de","The cat is under the table."],
+  ["between","entre","The chair is between the tables."],
+  ["behind","atrás de","The bag is behind the door."]
+];
+
+let voices = [];
+
+function loadVoices() {
+  voices = speechSynthesis.getVoices();
+  const select = document.getElementById("voice");
+  select.innerHTML = "";
+
+  const englishVoices = voices.filter(v => v.lang.toLowerCase().startsWith("en"));
+  const list = englishVoices.length ? englishVoices : voices;
+
+  list.forEach((v, i) => {
+    const option = document.createElement("option");
+    option.value = voices.indexOf(v);
+    option.textContent = `${v.name} (${v.lang})`;
+    select.appendChild(option);
+  });
+}
+
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+document.getElementById("rate").addEventListener("input", e => {
+  document.getElementById("rateValue").textContent = e.target.value;
+});
+
+function speak(text, repetitions = 1) {
+  stopSpeech();
+
+  const rate = parseFloat(document.getElementById("rate").value);
+  const voiceIndex = parseInt(document.getElementById("voice").value);
+  let current = 0;
+
+  function speakNext() {
+    if (current >= repetitions) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = rate;
+    if (voices[voiceIndex]) utterance.voice = voices[voiceIndex];
+
+    utterance.onend = () => {
+      current++;
+      if (current < repetitions) {
+        setTimeout(speakNext, 450);
+      }
+    };
+    speechSynthesis.speak(utterance);
+  }
+
+  speakNext();
+}
+
+function repeat(text) {
+  const count = parseInt(document.getElementById("repeatCount").value);
+  speak(text, count);
+}
+
+function stopSpeech() {
+  speechSynthesis.cancel();
+}
+
+function makeCards(data, targetId) {
+  const target = document.getElementById(targetId);
+  data.forEach(([word, pt, example]) => {
+    const card = document.createElement("div");
+    card.className = "lesson-card";
+    card.innerHTML = `
+      <div class="english">${word}</div>
+      <div class="portuguese">${pt}</div>
+      <div><strong>Exemplo:</strong> ${example}</div>
+      <div class="actions" style="margin-top:12px">
+        <button class="btn-speak mini" onclick='speak(${JSON.stringify(example)})'>🔊 Ouvir</button>
+        <button class="btn-repeat mini" onclick='repeat(${JSON.stringify(example)})'>🔁 Repetir</button>
+      </div>`;
+    target.appendChild(card);
+  });
+}
+
+function makePronouns() {
+  const tbody = document.getElementById("pronounTable");
+  pronouns.forEach(([en, pt, example]) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><strong>${en}</strong></td>
+      <td>${pt}</td>
+      <td>${example}</td>
+      <td><button class="btn-speak mini" onclick='speak(${JSON.stringify(example)})'>🔊</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+makePronouns();
+makeCards(toBe, "toBeCards");
+makeCards(toHave, "toHaveCards");
+makeCards(toDo, "toDoCards");
+makeCards(connectors, "connectorsCards");
+makeCards(prepositions, "prepositionsCards");
+
+const sequence = [
+  "I.",
+  "I am.",
+  "I have.",
+  "I do.",
+  "I am at home.",
+  "I have a book.",
+  "I study and practice.",
+  "I study because I want to learn English."
+];
+
+let sequenceIndex = 0;
+
+function practiceSequence() {
+  stopSpeech();
+  sequenceIndex = 0;
+  playSequenceItem();
+}
+
+function playSequenceItem() {
+  if (sequenceIndex >= sequence.length) {
+    document.getElementById("progress").style.width = "100%";
+    return;
+  }
+
+  const text = sequence[sequenceIndex];
+  const rate = parseFloat(document.getElementById("rate").value);
+  const voiceIndex = parseInt(document.getElementById("voice").value);
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-US";
+  u.rate = rate;
+  if (voices[voiceIndex]) u.voice = voices[voiceIndex];
+
+  document.getElementById("progress").style.width =
+    `${((sequenceIndex + 1) / sequence.length) * 100}%`;
+
+  u.onend = () => {
+    sequenceIndex++;
+    setTimeout(playSequenceItem, 700);
+  };
+
+  speechSynthesis.speak(u);
+}
+
+function repeatSequence() {
+  practiceSequence();
+}
+
+function checkAnswer(inputId, answer, resultId) {
+  const input = document.getElementById(inputId).value.trim().toLowerCase();
+  const result = document.getElementById(resultId);
+
+  if (input === answer.toLowerCase()) {
+    result.textContent = "✅ Correto!";
+    result.className = "result correct";
+    speak("Correct!");
+  } else {
+    result.textContent = `❌ Tente novamente. Resposta correta: ${answer}`;
+    result.className = "result wrong";
+    speak(`The correct answer is ${answer}`);
+  }
+}
+</script>
+</body>
+</html>
