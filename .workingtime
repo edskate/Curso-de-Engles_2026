@@ -818,6 +818,83 @@
                             "actionType": "Idle"
                         }
                     ]
+                },
+                {
+                    "date": "Fri Aug 28 2026",
+                    "sessions": [
+                        {
+                            "sessionInfo": {
+                                "id": "ea6a0ca6-cbc3-4b01-a4a9-93275fd5f47f",
+                                "duration": 877553,
+                                "idle": 892520,
+                                "state": "Idle",
+                                "durations": [
+                                    {
+                                        "id": "fb5ddbd1-6b69-46c5-9fc3-72874c038fc5",
+                                        "state": "Idle",
+                                        "begin": 1787899031383,
+                                        "end": 1787899031383,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "ccf8517e-0c8b-47e3-8ab3-c39b4ae65057",
+                                        "state": "Ongoing",
+                                        "begin": 1787898875610,
+                                        "end": 1787899031383,
+                                        "duration": 155773
+                                    },
+                                    {
+                                        "id": "4ce68815-d8cb-4d70-8609-e69bd3eaf88b",
+                                        "state": "Idle",
+                                        "begin": 1787898866718,
+                                        "end": 1787898875610,
+                                        "duration": 8892
+                                    },
+                                    {
+                                        "id": "70f85906-45a4-4a11-af24-5d8a7a4c7e53",
+                                        "state": "Ongoing",
+                                        "begin": 1787898735728,
+                                        "end": 1787898866718,
+                                        "duration": 130990
+                                    },
+                                    {
+                                        "id": "d824f7a4-c6e8-49d9-adea-6ec5d5baa84c",
+                                        "state": "Idle",
+                                        "begin": 1787898731393,
+                                        "end": 1787898735728,
+                                        "duration": 4335
+                                    },
+                                    {
+                                        "id": "d2f20aff-4830-433c-a73c-202803f9315e",
+                                        "state": "Ongoing",
+                                        "begin": 1787898433127,
+                                        "end": 1787898731393,
+                                        "duration": 298266
+                                    },
+                                    {
+                                        "id": "7cef31ed-335b-43f9-9daf-93a8b115e6a2",
+                                        "state": "Idle",
+                                        "begin": 1787898431392,
+                                        "end": 1787898433127,
+                                        "duration": 1735
+                                    },
+                                    {
+                                        "id": "2427c44c-20b1-4200-b5d6-7eb73bce595a",
+                                        "state": "Ongoing",
+                                        "begin": 1787898138868,
+                                        "end": 1787898431392,
+                                        "duration": 292524
+                                    }
+                                ],
+                                "filesExt": [
+                                    "",
+                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations",
+                                    ".html"
+                                ]
+                            },
+                            "actionType": "Idle"
+                        }
+                    ]
                 }
             ]
         }
