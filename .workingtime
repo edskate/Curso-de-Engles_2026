@@ -24,9 +24,7 @@
     },
     "data": [
         {
-            "config": {
-                "showIdle": false
-            },
+            "config": false,
             "user": "edskate",
             "dailySessions": [
                 {
@@ -965,6 +963,79 @@
                                 ]
                             },
                             "actionType": "Idle"
+                        }
+                    ]
+                },
+                {
+                    "date": "Sat Aug 29 2026",
+                    "sessions": [
+                        {
+                            "sessionInfo": {
+                                "id": "ed2ea3ca-6e1e-4b8e-9c8d-73b5d0a7acae",
+                                "duration": 0,
+                                "idle": 0,
+                                "state": "Idle",
+                                "durations": [],
+                                "filesExt": [
+                                    ""
+                                ]
+                            },
+                            "actionType": "Idle"
+                        }
+                    ]
+                },
+                {
+                    "date": "Sun Aug 30 2026",
+                    "sessions": [
+                        {
+                            "sessionInfo": {
+                                "id": "ed2ea3ca-6e1e-4b8e-9c8d-73b5d0a7acae",
+                                "duration": 709867,
+                                "idle": 712200,
+                                "state": "Ongoing",
+                                "durations": [
+                                    {
+                                        "id": "c496c05f-c203-42c3-9871-60b21e557f6b",
+                                        "state": "Ongoing",
+                                        "begin": 1788061174942,
+                                        "end": 1788061174942,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "c252d368-c4c5-489c-8c09-26f5e19aaed9",
+                                        "state": "Idle",
+                                        "begin": 1788061173279,
+                                        "end": 1788061174942,
+                                        "duration": 1663
+                                    },
+                                    {
+                                        "id": "82f2b1fe-4147-408b-b179-6c457b773339",
+                                        "state": "Ongoing",
+                                        "begin": 1788060873940,
+                                        "end": 1788061173278,
+                                        "duration": 299338
+                                    },
+                                    {
+                                        "id": "9a6689ed-b1ac-45cf-93b1-08fedf4c191e",
+                                        "state": "Idle",
+                                        "begin": 1788060873270,
+                                        "end": 1788060873940,
+                                        "duration": 670
+                                    },
+                                    {
+                                        "id": "843ffe77-db90-43f2-8fae-e92e0c27fc56",
+                                        "state": "Ongoing",
+                                        "begin": 1788060760803,
+                                        "end": 1788060873270,
+                                        "duration": 112467
+                                    }
+                                ],
+                                "filesExt": [
+                                    "",
+                                    ".html"
+                                ]
+                            },
+                            "actionType": "Codding"
                         }
                     ]
                 }
