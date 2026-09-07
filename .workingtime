@@ -1038,6 +1038,39 @@
                             "actionType": "Codding"
                         }
                     ]
+                },
+                {
+                    "date": "Mon Sep 07 2026",
+                    "sessions": [
+                        {
+                            "sessionInfo": {
+                                "id": "74add8c9-52ff-40f5-89c9-135cfa44b63a",
+                                "duration": 38660,
+                                "idle": 4494642,
+                                "state": "Idle",
+                                "durations": [
+                                    {
+                                        "id": "a2b223f1-2b52-4568-b4af-c3b635ab7fed",
+                                        "state": "Idle",
+                                        "begin": 1788816329342,
+                                        "end": 1788816329342,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "d0137ecf-c5d7-4039-bc81-32b70438f752",
+                                        "state": "Ongoing",
+                                        "begin": 1788816290682,
+                                        "end": 1788816329342,
+                                        "duration": 38660
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations"
+                                ]
+                            },
+                            "actionType": "Idle"
+                        }
+                    ]
                 }
             ]
         }
