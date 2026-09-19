@@ -1045,16 +1045,23 @@
                         {
                             "sessionInfo": {
                                 "id": "74add8c9-52ff-40f5-89c9-135cfa44b63a",
-                                "duration": 38660,
-                                "idle": 4494642,
-                                "state": "Idle",
+                                "duration": 41774,
+                                "idle": 12287773,
+                                "state": "Ongoing",
                                 "durations": [
+                                    {
+                                        "id": "ab99ba53-2350-46a4-838e-953668abe93f",
+                                        "state": "Ongoing",
+                                        "begin": 1788828575342,
+                                        "end": 1788828575342,
+                                        "duration": 0
+                                    },
                                     {
                                         "id": "a2b223f1-2b52-4568-b4af-c3b635ab7fed",
                                         "state": "Idle",
                                         "begin": 1788816329342,
-                                        "end": 1788816329342,
-                                        "duration": 0
+                                        "end": 1788828575341,
+                                        "duration": 12245999
                                     },
                                     {
                                         "id": "d0137ecf-c5d7-4039-bc81-32b70438f752",
@@ -1065,10 +1072,150 @@
                                     }
                                 ],
                                 "filesExt": [
-                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations"
+                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations",
+                                    ".json"
                                 ]
                             },
-                            "actionType": "Idle"
+                            "actionType": "Documenting"
+                        },
+                        {
+                            "sessionInfo": {
+                                "id": "305bf4e7-1feb-4bba-92f1-c2d6df0cfadf",
+                                "duration": 1906743,
+                                "idle": 2106911,
+                                "state": "Ongoing",
+                                "durations": [
+                                    {
+                                        "id": "f3e57ec0-2fe4-4b49-bf0f-cbb94c6785eb",
+                                        "state": "Ongoing",
+                                        "begin": 1788828868260,
+                                        "end": 1788828868260,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "03386977-f9d3-4892-bd85-80d2775dd6c8",
+                                        "state": "Idle",
+                                        "begin": 1788828676630,
+                                        "end": 1788828868260,
+                                        "duration": 191630
+                                    },
+                                    {
+                                        "id": "2cfcff19-19d7-4ec6-b3e1-c8a0d440e9c1",
+                                        "state": "Ongoing",
+                                        "begin": 1788828594167,
+                                        "end": 1788828676630,
+                                        "duration": 82463
+                                    },
+                                    {
+                                        "id": "d1c4f2e7-bd3b-4252-9395-15b3d907db27",
+                                        "state": "Idle",
+                                        "begin": 1788828585629,
+                                        "end": 1788828594167,
+                                        "duration": 8538
+                                    },
+                                    {
+                                        "id": "72bb5d37-dbd7-4421-b980-2f36f714c6c1",
+                                        "state": "Ongoing",
+                                        "begin": 1788828578457,
+                                        "end": 1788828585629,
+                                        "duration": 7172
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".html"
+                                ]
+                            },
+                            "actionType": "Codding"
+                        }
+                    ]
+                },
+                {
+                    "date": "Tue Sep 08 2026",
+                    "sessions": [
+                        {
+                            "sessionInfo": {
+                                "id": "74add8c9-52ff-40f5-89c9-135cfa44b63a",
+                                "duration": 41774,
+                                "idle": 12287773,
+                                "state": "Ongoing",
+                                "durations": [
+                                    {
+                                        "id": "ab99ba53-2350-46a4-838e-953668abe93f",
+                                        "state": "Ongoing",
+                                        "begin": 1788828575342,
+                                        "end": 1788828575342,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "a2b223f1-2b52-4568-b4af-c3b635ab7fed",
+                                        "state": "Idle",
+                                        "begin": 1788816329342,
+                                        "end": 1788828575341,
+                                        "duration": 12245999
+                                    },
+                                    {
+                                        "id": "d0137ecf-c5d7-4039-bc81-32b70438f752",
+                                        "state": "Ongoing",
+                                        "begin": 1788816290682,
+                                        "end": 1788816329342,
+                                        "duration": 38660
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".vscode-chat-customizations-evaluations-#1-Chat Customizations Evaluations",
+                                    ".json"
+                                ]
+                            },
+                            "actionType": "Documenting"
+                        },
+                        {
+                            "sessionInfo": {
+                                "id": "305bf4e7-1feb-4bba-92f1-c2d6df0cfadf",
+                                "duration": 36503352,
+                                "idle": 36703520,
+                                "state": "Ongoing",
+                                "durations": [
+                                    {
+                                        "id": "f3e57ec0-2fe4-4b49-bf0f-cbb94c6785eb",
+                                        "state": "Ongoing",
+                                        "begin": 1788828868260,
+                                        "end": 1788828868260,
+                                        "duration": 0
+                                    },
+                                    {
+                                        "id": "03386977-f9d3-4892-bd85-80d2775dd6c8",
+                                        "state": "Idle",
+                                        "begin": 1788828676630,
+                                        "end": 1788828868260,
+                                        "duration": 191630
+                                    },
+                                    {
+                                        "id": "2cfcff19-19d7-4ec6-b3e1-c8a0d440e9c1",
+                                        "state": "Ongoing",
+                                        "begin": 1788828594167,
+                                        "end": 1788828676630,
+                                        "duration": 82463
+                                    },
+                                    {
+                                        "id": "d1c4f2e7-bd3b-4252-9395-15b3d907db27",
+                                        "state": "Idle",
+                                        "begin": 1788828585629,
+                                        "end": 1788828594167,
+                                        "duration": 8538
+                                    },
+                                    {
+                                        "id": "72bb5d37-dbd7-4421-b980-2f36f714c6c1",
+                                        "state": "Ongoing",
+                                        "begin": 1788828578457,
+                                        "end": 1788828585629,
+                                        "duration": 7172
+                                    }
+                                ],
+                                "filesExt": [
+                                    ".html"
+                                ]
+                            },
+                            "actionType": "Codding"
                         }
                     ]
                 }
