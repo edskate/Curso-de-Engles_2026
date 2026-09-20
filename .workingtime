@@ -24,7 +24,9 @@
     },
     "data": [
         {
-            "config": false,
+            "config": {
+                "showIdle": false
+            },
             "user": "edskate",
             "dailySessions": [
                 {
@@ -1311,7 +1313,7 @@
                                 "id": "6b6693b9-a984-484c-8317-75727b8b5950",
                                 "duration": 1018944,
                                 "idle": 1206024,
-                                "state": "Idle",
+                                "state": "Ended",
                                 "durations": [
                                     {
                                         "id": "9e106238-a6ca-442b-a450-d7441c08d571",
@@ -1400,6 +1402,19 @@
                                 ],
                                 "filesExt": [
                                     ".html"
+                                ]
+                            },
+                            "actionType": "Idle"
+                        },
+                        {
+                            "sessionInfo": {
+                                "id": "933cf34e-a70c-4a90-ab64-90b76732b5b7",
+                                "duration": 0,
+                                "idle": 0,
+                                "state": "Idle",
+                                "durations": [],
+                                "filesExt": [
+                                    ""
                                 ]
                             },
                             "actionType": "Idle"
