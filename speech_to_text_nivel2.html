@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 Speech Training — Nível 2</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px 16px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c1a4d, #4527a0, #00838f, #26a69a);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+        }
+        h1 { margin-top: 0; color: #4527a0; }
+        h2 { color: #00838f; margin-bottom: 4px; }
+        a { color: #4527a0; }
+        button {
+            font-size: 16px;
+            padding: 8px 16px;
+            margin: 4px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.12s, filter 0.12s, box-shadow 0.12s;
+        }
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.12);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+        button:disabled { background: #bdbdbd; cursor: not-allowed; box-shadow: none; }
+        #translateUnitBtn { background: linear-gradient(135deg, #8e24aa, #5e35b1); color: #fff; }
+        #downloadAllBtn { background: linear-gradient(135deg, #1e88e5, #1565c0); color: #fff; }
+        #clearUnitBtn { background: linear-gradient(135deg, #fb8c00, #e65100); color: #fff; }
+        #clearAllBtn { background: linear-gradient(135deg, #757575, #424242); color: #fff; }
+
+        .progressbar {
+            background: #e0e0e0;
+            border-radius: 12px;
+            height: 22px;
+            overflow: hidden;
+            margin: 8px 0 4px;
+        }
+        #bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #43a047, #26a69a);
+            transition: width 0.5s;
+        }
+        #barText { margin: 0 0 12px; font-weight: bold; color: #2e7d32; }
+
+        #unitTabs { margin: 10px 0 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+        #unitTabs button {
+            background: #eceff1;
+            color: #37474f;
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+        #unitTabs button.active {
+            background: linear-gradient(135deg, #4527a0, #00838f);
+            color: #fff;
+        }
+
+        ul#phraseList { list-style-type: none; padding: 0; }
+        ul#phraseList li {
+            background: #ffffff;
+            border: 2px solid #b2dfdb;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.3s, border-color 0.3s, background 0.3s;
+        }
+        ul#phraseList li.mastered {
+            background: #e8f5e9;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.22), 0 4px 14px rgba(46, 125, 50, 0.3);
+        }
+        .phraseRow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+        .phrase { flex: 1; font-size: 17px; font-weight: 600; color: #263238; min-width: 220px; transition: filter 0.3s; }
+        .phrase.blurred { filter: blur(7px); user-select: none; }
+        .phraseRow button {
+            background: none;
+            box-shadow: none;
+            font-size: 18px;
+            padding: 2px 6px;
+            margin: 0;
+        }
+        .score {
+            font-size: 13px;
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 12px;
+            background: #fff3e0;
+            color: #e65100;
+            white-space: nowrap;
+        }
+        .score.ok { background: #c8e6c9; color: #1b5e20; }
+        .stars { color: #f9a825; font-size: 14px; white-space: nowrap; }
+
+        .chips { display: block; width: 100%; margin-top: 6px; }
+        .chip {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin: 2px 4px 2px 0;
+        }
+        .chip.present, .chip.presentC { background: #e3f2fd; color: #1565c0; }
+        .chip.past, .chip.pastC { background: #fff3e0; color: #e65100; }
+        .chip.future { background: #f3e5f5; color: #7b1fa2; }
+        .chip.modal { background: #e0f7fa; color: #00838f; }
+        .chip.perfect { background: #e8f5e9; color: #2e7d32; }
+        .chip.gerund { background: #eceff1; color: #546e7a; }
+
+        .v-present, .v-presentC { color: #1565c0; border-bottom: 2px solid #1565c0; }
+        .v-past, .v-pastC { color: #e65100; border-bottom: 2px solid #e65100; }
+        .v-future { color: #7b1fa2; border-bottom: 2px solid #7b1fa2; }
+        .v-modal { color: #00838f; border-bottom: 2px solid #00838f; }
+        .v-perfect { color: #2e7d32; border-bottom: 2px solid #2e7d32; }
+        .v-gerund { color: #546e7a; border-bottom: 2px solid #546e7a; }
+
+        .translation {
+            display: block;
+            width: 100%;
+            color: #2e7d32;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .legend {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin: 14px 0;
+        }
+        .legend span { font-weight: bold; margin-right: 10px; }
+
+        #status { font-style: italic; color: #444; min-height: 1.5em; }
+        #status.error { color: #c62828; font-weight: bold; }
+
+        #addArea {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        #newPhrases {
+            width: 100%;
+            font-family: inherit;
+            font-size: 15px;
+            padding: 8px 10px;
+            border: 2px solid #b2dfdb;
+            border-radius: 8px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        #newPhrases:focus { outline: none; border-color: #00838f; }
+        #addBtn { background: linear-gradient(135deg, #00897b, #00695c); color: #fff; }
+        ul#phraseList li button.removeCustom { color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>🎓 Speech Training — Nível 2</h1>
+    <p>Plano de estudos por unidades: os <strong>verbos são identificados e conjugados</strong> automaticamente
+    (presente, passado, futuro...). Pratique cada frase de dois jeitos:</p>
+    <p>
+        🎤 <strong>Praticar</strong> — leia a frase em voz alta e ganhe pontos.<br>
+        🙈 <strong>Ditado</strong> — a frase fica escondida; ouça 🔊 e repita de memória. Mais difícil, vale o dobro!
+    </p>
+
+    <div class="legend">
+        Legenda:
+        <span class="v-present">Presente</span>
+        <span class="v-past">Passado</span>
+        <span class="v-future">Futuro</span>
+        <span class="v-modal">Modal</span>
+        <span class="v-perfect">Presente perfeito</span>
+        <span class="v-gerund">-ing</span>
+    </div>
+
+    <div class="progressbar"><div id="bar"></div></div>
+    <p id="barText">Progresso: 0%</p>
+
+    <div id="unitTabs"></div>
+
+    <h2 id="unitTitle"></h2>
+    <p id="unitDesc"></p>
+    <button id="translateUnitBtn" type="button">🌐 Traduzir unidade</button>
+    <button id="downloadAllBtn" type="button">💾 Salvar tudo (.txt)</button>
+    <button id="clearUnitBtn" type="button">🧹 Limpar unidade</button>
+    <button id="clearAllBtn" type="button">🗑️ Limpar tudo</button>
+
+    <div id="addArea">
+        <textarea id="newPhrases" rows="3" placeholder="Digite ou cole frases/textos para treinar NESTA unidade (uma frase por linha). Ex.:&#10;I have been working a lot lately.&#10;We used to play outside when we were kids."></textarea>
+        <button id="addBtn" type="button">➕ Adicionar nesta unidade</button>
+    </div>
+
+    <p id="status" aria-live="polite">Escolha uma frase: clique em 🎤 para praticar ou 🙈 para o ditado.</p>
+
+    <ul id="phraseList"></ul>
+
+    <hr>
+    <p>
+        <a href="speech_to_text.html">⬅ Nível 1 (frases livres)</a> ·
+        <a href="speech_to_text_nivel3.html">🚀 Nível 3 (suas frases)</a> ·
+        <a href="index12.html">🏠 index12</a>
+    </p>
+    </div>
+
+<script>
+(function () {
+    // ================= PLANO DE ESTUDOS — NÍVEL 2 =================
+    const UNITS = [
+        {
+            id: 'u1',
+            title: 'Unidade 1 — Presente Simples (rotina)',
+            desc: 'Hábitos e fatos. Atenção: he/she/it + verbo ganha -s ou -es (she works, he watches).',
+            phrases: [
+                'I wake up early every day.',
+                'She works in a hospital.',
+                'He plays soccer on weekends.',
+                'They speak English at school.',
+                'We study English every night.',
+                'My father cooks dinner on Sundays.',
+                'She watches TV after work.',
+                'It rains a lot in April.'
+            ]
+        },
+        {
+            id: 'u2',
+            title: 'Unidade 2 — Presente Contínuo (agora)',
+            desc: 'am/is/are + verbo-ing: ações acontecendo neste momento.',
+            phrases: [
+                'I am studying English now.',
+                'She is cooking dinner at the moment.',
+                'They are playing in the park.',
+                'We are learning new words today.',
+                'He is driving to work right now.',
+                'The baby is sleeping.',
+                'I am reading a good book.',
+                'They are watching a movie.'
+            ]
+        },
+        {
+            id: 'u3',
+            title: 'Unidade 3 — Passado Simples',
+            desc: 'Regulares com -ed (worked, watched) e irregulares (went, ate, bought, wrote).',
+            phrases: [
+                'I worked yesterday.',
+                'She traveled to London last year.',
+                'We ate pizza for dinner.',
+                'He went to the gym this morning.',
+                'They watched a movie last night.',
+                'I bought a new phone.',
+                'She wrote a letter to her friend.',
+                'We played soccer on Saturday.'
+            ]
+        },
+        {
+            id: 'u4',
+            title: 'Unidade 4 — Futuro (will / going to)',
+            desc: 'will + verbo (decisões/previsões) e be going to + verbo (planos).',
+            phrases: [
+                'I will travel to Canada next year.',
+                'She is going to study medicine.',
+                'We will have a test tomorrow.',
+                'They are going to buy a house.',
+                'He will call you tonight.',
+                'I am going to learn English.',
+                'It will rain tomorrow.',
+                'We are going to visit our grandparents.'
+            ]
+        },
+        {
+            id: 'u5',
+            title: 'Unidade 5 — Perguntas e Negativas',
+            desc: 'Do/Does/Did + verbo na forma base. Na negativa: do not / does not / did not.',
+            phrases: [
+                'Do you speak English?',
+                'Does she like coffee?',
+                'Did they go to school yesterday?',
+                'I do not understand this word.',
+                'She does not work on Sundays.',
+                'He did not eat breakfast.',
+                'What time do you wake up?',
+                'Where did you buy that shirt?'
+            ]
+        },
+        {
+            id: 'u6',
+            title: 'Unidade 6 — Verbos Modais',
+            desc: 'can, should, must + verbo na forma base (sem -s, sem to).',
+            phrases: [
+                'I can swim very well.',
+                'You should drink more water.',
+                'We must study for the test.',
+                'She can speak three languages.',
+                'They should sleep early.',
+                'He must finish his homework.',
+                'Can you help me, please?',
+                'You should not smoke.'
+            ]
+        }
+    ];
+
+    // ================= IDENTIFICAÇÃO DE VERBOS =================
+    const IRREGULAR = {
+        'was': 'be', 'were': 'be', 'went': 'go', 'ate': 'eat', 'saw': 'see',
+        'bought': 'buy', 'wrote': 'write', 'had': 'have', 'did': 'do', 'made': 'make',
+        'took': 'take', 'gave': 'give', 'came': 'come', 'ran': 'run', 'said': 'say',
+        'told': 'tell', 'got': 'get', 'found': 'find', 'felt': 'feel', 'left': 'leave',
+        'met': 'meet', 'paid': 'pay', 'sent': 'send', 'spent': 'spend', 'built': 'build',
+        'sold': 'sell', 'slept': 'sleep', 'kept': 'keep', 'held': 'hold', 'fell': 'fall',
+        'drew': 'draw', 'grew': 'grow', 'knew': 'know', 'threw': 'throw', 'wore': 'wear',
+        'won': 'win', 'lost': 'lose', 'spoke': 'speak', 'broke': 'break', 'chose': 'choose',
+        'forgot': 'forget', 'began': 'begin', 'sang': 'sing', 'swam': 'swim', 'flew': 'fly',
+        'drove': 'drive', 'rode': 'ride', 'taught': 'teach', 'caught': 'catch',
+        'brought': 'bring', 'thought': 'think', 'understood': 'understand', 'read': 'read',
+        'put': 'put', 'cut': 'cut', 'hit': 'hit', 'sat': 'sit', 'stood': 'stand', 'drank': 'drink'
+    };
+    const PARTICIPLES = new Set(['been', 'gone', 'eaten', 'seen', 'bought', 'written', 'done',
+        'made', 'taken', 'given', 'spoken', 'broken', 'chosen', 'forgotten', 'begun', 'sung',
+        'swum', 'flown', 'driven', 'ridden', 'taught', 'caught', 'brought', 'thought',
+        'understood', 'read', 'put', 'cut', 'hit', 'known', 'thrown', 'worn', 'drunk', 'had']);
+    const MODALS = new Set(['can', 'could', 'should', 'must', 'may', 'might', 'shall', 'would']);
+    const COMMON_VERBS = new Set(['be', 'am', 'is', 'are', 'have', 'has', 'do', 'does',
+        'go', 'goes', 'like', 'likes', 'love', 'loves', 'want', 'wants', 'need', 'needs',
+        'work', 'works', 'study', 'studies', 'play', 'plays', 'speak', 'speaks', 'learn',
+        'learns', 'live', 'lives', 'eat', 'eats', 'drink', 'drinks', 'read', 'reads',
+        'watch', 'watches', 'cook', 'cooks', 'wake', 'wakes', 'rain', 'rains', 'sleep',
+        'sleeps', 'drive', 'drives', 'call', 'calls', 'help', 'helps', 'finish', 'finishes',
+        'swim', 'swims', 'travel', 'travels', 'visit', 'visits', 'buy', 'buys', 'teach',
+        'teaches', 'understand', 'understands', 'know', 'knows', 'think', 'thinks']);
+
+    function analyzePhrase(text) {
+        const tokens = text.split(/\s+/);
+        const clean = tokens.map(t => t.toLowerCase().replace(/[^a-z']/g, ''));
+        const marks = new Array(tokens.length).fill(null);
+        const findings = [];
+        const isIng = w => /^[a-z]+ing$/.test(w) && w.length > 4;
+
+        for (let i = 0; i < tokens.length; i++) {
+            const w = clean[i];
+            if (!w) continue;
+            const next = clean[i + 1] || '';
+            const next2 = clean[i + 2] || '';
+
+            // Futuro: will / 'll / won't + base
+            if (w === 'will' || w === "won't" || w.endsWith("'ll")) {
+                marks[i] = 'future';
+                if (next) marks[i + 1] = 'future';
+                findings.push({ tense: 'future', label: 'Futuro (will)', form: tokens[i] + (next ? ' ' + tokens[i + 1] : '') });
+                continue;
+            }
+            // Futuro: be going to + base
+            if (w === 'going' && next === 'to') {
+                marks[i] = 'future';
+                if (next2) marks[i + 2] = 'future';
+                findings.push({ tense: 'future', label: 'Futuro (going to)', form: 'going to ' + (tokens[i + 2] || '') });
+                continue;
+            }
+            // Presente contínuo: am/is/are + ing
+            if ((w === 'am' || w === 'is' || w === 'are') && isIng(next)) {
+                marks[i] = 'presentC'; marks[i + 1] = 'presentC';
+                findings.push({ tense: 'presentC', label: 'Presente contínuo', form: tokens[i] + ' ' + tokens[i + 1] });
+                continue;
+            }
+            // Passado contínuo: was/were + ing
+            if ((w === 'was' || w === 'were') && isIng(next)) {
+                marks[i] = 'pastC'; marks[i + 1] = 'pastC';
+                findings.push({ tense: 'pastC', label: 'Passado contínuo', form: tokens[i] + ' ' + tokens[i + 1] });
+                continue;
+            }
+            // Presente perfeito: have/has + particípio
+            if ((w === 'have' || w === 'has') && PARTICIPLES.has(next)) {
+                marks[i] = 'perfect'; marks[i + 1] = 'perfect';
+                findings.push({ tense: 'perfect', label: 'Presente perfeito', form: tokens[i] + ' ' + tokens[i + 1] });
+                continue;
+            }
+            // Auxiliares do/does/did
+            if (w === 'do' || w === 'does' || w === "don't" || w === "doesn't") {
+                marks[i] = 'present';
+                if (next && next !== 'not') marks[i + 1] = 'present';
+                findings.push({ tense: 'present', label: 'Presente simples (auxiliar do/does)', form: tokens[i] + (next && next !== 'not' ? ' ' + tokens[i + 1] : '') });
+                continue;
+            }
+            if (w === 'did' || w === "didn't") {
+                marks[i] = 'past';
+                if (next && next !== 'not') marks[i + 1] = 'past';
+                findings.push({ tense: 'past', label: 'Passado simples (auxiliar did)', form: tokens[i] + (next && next !== 'not' ? ' ' + tokens[i + 1] : '') });
+                continue;
+            }
+            // Modais
+            if (MODALS.has(w)) {
+                marks[i] = 'modal';
+                if (next && next !== 'not') marks[i + 1] = 'modal';
+                findings.push({ tense: 'modal', label: 'Verbo modal', form: tokens[i] + (next && next !== 'not' ? ' ' + tokens[i + 1] : '') });
+                continue;
+            }
+            // be como verbo principal
+            if (w === 'am' || w === 'is' || w === 'are') {
+                marks[i] = 'present';
+                findings.push({ tense: 'present', label: 'Presente (verbo to be)', form: tokens[i] });
+                continue;
+            }
+            if (w === 'was' || w === 'were') {
+                marks[i] = 'past';
+                findings.push({ tense: 'past', label: 'Passado (verbo to be)', form: tokens[i] });
+                continue;
+            }
+            // Irregulares no passado
+            if (IRREGULAR[w]) {
+                marks[i] = 'past';
+                findings.push({ tense: 'past', label: 'Passado simples (irregular)', form: tokens[i] + ' → base: ' + IRREGULAR[w] });
+                continue;
+            }
+            // Regulares -ed
+            if (/^[a-z]+ed$/.test(w) && w.length > 3) {
+                marks[i] = 'past';
+                findings.push({ tense: 'past', label: 'Passado simples (regular -ed)', form: tokens[i] });
+                continue;
+            }
+            // Forma -ing sozinha
+            if (isIng(w)) {
+                marks[i] = 'gerund';
+                findings.push({ tense: 'gerund', label: 'Forma -ing (gerúndio)', form: tokens[i] });
+                continue;
+            }
+            // Presente simples (verbos conhecidos)
+            if (COMMON_VERBS.has(w)) {
+                marks[i] = 'present';
+                const base = w.replace(/ies$/, 'y').replace(/es$/, '').replace(/s$/, '');
+                const third = w !== base && COMMON_VERBS.has(base);
+                findings.push({
+                    tense: 'present',
+                    label: third ? 'Presente simples (3ª pessoa -s)' : 'Presente simples',
+                    form: third ? tokens[i] + ' → base: ' + base : tokens[i]
+                });
+                continue;
+            }
+        }
+        return { tokens, marks, findings };
+    }
+
+    function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function tenseClass(t) { return 'v-' + t; }
+
+    // ================= STORAGE =================
+    const PROGRESS_KEY = 'speechLevel2Progress';
+    const TRANSLATE_CACHE_KEY = 'translationCacheENPT'; // mesmo cache do Nível 1
+
+    let progress = {};
+    try { progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch (e) { progress = {}; }
+    function saveProgress() { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }
+
+    let translationCache = {};
+    try { translationCache = JSON.parse(localStorage.getItem(TRANSLATE_CACHE_KEY)) || {}; } catch (e) { translationCache = {}; }
+    function saveCache() { localStorage.setItem(TRANSLATE_CACHE_KEY, JSON.stringify(translationCache)); }
+
+    // Frases adicionadas manualmente por unidade
+    const CUSTOM_KEY = 'speechLevel2Custom';
+    let customPhrases = {};
+    try { customPhrases = JSON.parse(localStorage.getItem(CUSTOM_KEY)) || {}; } catch (e) { customPhrases = {}; }
+    function saveCustom() { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customPhrases)); }
+
+    function unitPhrases(i) {
+        const base = UNITS[i].phrases;
+        const custom = customPhrases[UNITS[i].id] || [];
+        return base.concat(custom);
+    }
+    function isCustomPhrase(unitIdx, text) {
+        const custom = customPhrases[UNITS[unitIdx].id] || [];
+        return custom.indexOf(text) !== -1;
+    }
+
+    function bestScore(text) {
+        const p = progress[text];
+        if (!p) return 0;
+        return Math.max(p.score || 0, p.dScore || 0);
+    }
+    function isMastered(text) { return bestScore(text) >= 80; }
+    function stars(score) {
+        if (score >= 95) return '⭐⭐⭐';
+        if (score >= 80) return '⭐⭐';
+        if (score >= 60) return '⭐';
+        return '';
+    }
+
+    // ================= COMPARAÇÃO DE FALA =================
+    function normalizeWords(s) {
+        return s.toLowerCase().replace(/[^a-z0-9'\s]/g, ' ').split(/\s+/).filter(Boolean);
+    }
+    function scoreMatch(target, spoken) {
+        const t = normalizeWords(target);
+        const s = normalizeWords(spoken);
+        if (!t.length || !s.length) return 0;
+        const remaining = s.slice();
+        let matched = 0;
+        t.forEach(function (w) {
+            const idx = remaining.indexOf(w);
+            if (idx !== -1) { matched++; remaining.splice(idx, 1); }
+        });
+        return matched / t.length;
+    }
+
+    // ================= VOZ (texto → fala) =================
+    let enVoice = null;
+    function pickEnglishVoice() {
+        const voices = speechSynthesis.getVoices();
+        enVoice = voices.find(v => v.lang.toLowerCase().startsWith('en')) || null;
+    }
+    if ('speechSynthesis' in window) {
+        pickEnglishVoice();
+        speechSynthesis.onvoiceschanged = pickEnglishVoice;
+    }
+
+    function speak(text, onend, rate) {
+        if (!('speechSynthesis' in window)) { if (onend) onend(); return; }
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = rate || 0.9;
+        if (enVoice) u.voice = enVoice;
+        if (onend) {
+            let done = false;
+            const finish = function () { if (!done) { done = true; onend(); } };
+            u.onend = finish;
+            u.onerror = finish;
+            setTimeout(finish, 2500 + text.split(/\s+/).length * 500); // segurança
+        }
+        speechSynthesis.speak(u);
+    }
+
+    // ================= TRADUÇÃO =================
+    async function translateText(text) {
+        if (translationCache[text]) return translationCache[text];
+        const res = await fetch('https://api.mymemory.translated.net/get?q=' +
+            encodeURIComponent(text) + '&langpair=en|pt-BR');
+        const data = await res.json();
+        const t = data && data.responseData && data.responseData.translatedText;
+        if (!t) throw new Error('translation failed');
+        translationCache[text] = t;
+        saveCache();
+        return t;
+    }
+
+    // ================= UI =================
+    const unitTabs = document.getElementById('unitTabs');
+    const unitTitle = document.getElementById('unitTitle');
+    const unitDesc = document.getElementById('unitDesc');
+    const translateUnitBtn = document.getElementById('translateUnitBtn');
+    const status = document.getElementById('status');
+    const list = document.getElementById('phraseList');
+    const bar = document.getElementById('bar');
+    const barText = document.getElementById('barText');
+
+    let currentUnit = 0;
+    let blurredIdx = null;
+    let activeAction = null; // {index, mode:'repeat'|'dictation'}
+
+    function renderTabs() {
+        unitTabs.innerHTML = '';
+        UNITS.forEach(function (u, i) {
+            const list = unitPhrases(i);
+            const done = list.filter(isMastered).length;
+            const b = document.createElement('button');
+            b.textContent = 'U' + (i + 1) + ' · ' + done + '/' + list.length + (done === list.length && list.length ? ' ✅' : '');
+            b.title = u.title;
+            if (i === currentUnit) b.classList.add('active');
+            b.addEventListener('click', function () {
+                currentUnit = i;
+                blurredIdx = null;
+                render();
+            });
+            unitTabs.appendChild(b);
+        });
+    }
+
+    function renderProgress() {
+        let total = 0, mastered = 0;
+        UNITS.forEach(function (u, i) {
+            unitPhrases(i).forEach(function (p) {
+                total++;
+                if (isMastered(p)) mastered++;
+            });
+        });
+        const pct = total ? Math.round(mastered / total * 100) : 0;
+        bar.style.width = pct + '%';
+        barText.textContent = 'Progresso: ' + pct + '% (' + mastered + ' de ' + total + ' frases dominadas)';
+    }
+
+    function render() {
+        const unit = UNITS[currentUnit];
+        unitTitle.textContent = unit.title;
+        unitDesc.textContent = unit.desc;
+        list.innerHTML = '';
+
+        unitPhrases(currentUnit).forEach(function (text, i) {
+            const li = document.createElement('li');
+            if (isMastered(text)) li.classList.add('mastered');
+
+            const row = document.createElement('div');
+            row.className = 'phraseRow';
+
+            const analysis = analyzePhrase(text);
+            const phraseSpan = document.createElement('span');
+            phraseSpan.className = 'phrase' + (blurredIdx === i ? ' blurred' : '');
+            phraseSpan.innerHTML = analysis.tokens.map(function (tok, k) {
+                const m = analysis.marks[k];
+                return m ? '<span class="' + tenseClass(m) + '">' + escapeHtml(tok) + '</span>' : escapeHtml(tok);
+            }).join(' ');
+            row.appendChild(phraseSpan);
+
+            const sc = bestScore(text);
+            if (sc > 0) {
+                const badge = document.createElement('span');
+                badge.className = 'score' + (sc >= 80 ? ' ok' : '');
+                badge.textContent = '🎯 ' + sc + '%';
+                row.appendChild(badge);
+                const st = document.createElement('span');
+                st.className = 'stars';
+                st.textContent = stars(sc);
+                row.appendChild(st);
+            }
+
+            const listenBtn = document.createElement('button');
+            listenBtn.title = 'Ouvir frase';
+            listenBtn.textContent = '🔊';
+            listenBtn.addEventListener('click', function () {
+                speak(text, null, 0.9);
+                status.classList.remove('error');
+                status.textContent = '🔊 Playing: "' + text + '"';
+            });
+            row.appendChild(listenBtn);
+
+            const repeatBtn = document.createElement('button');
+            repeatBtn.title = 'Praticar lendo a frase';
+            repeatBtn.textContent = '🎤';
+            repeatBtn.addEventListener('click', function () { startAction(i, 'repeat'); });
+            row.appendChild(repeatBtn);
+
+            const dictBtn = document.createElement('button');
+            dictBtn.title = 'Ditado: ouça e repita sem ler';
+            dictBtn.textContent = '🙈';
+            dictBtn.addEventListener('click', function () { startAction(i, 'dictation'); });
+            row.appendChild(dictBtn);
+
+            const trBtn = document.createElement('button');
+            trBtn.title = 'Traduzir frase';
+            trBtn.textContent = '🌐';
+            trBtn.addEventListener('click', function () { translateOne(i); });
+            row.appendChild(trBtn);
+
+            if (isCustomPhrase(currentUnit, text)) {
+                const rmBtn = document.createElement('button');
+                rmBtn.className = 'removeCustom';
+                rmBtn.title = 'Remover frase adicionada por você';
+                rmBtn.textContent = '✖';
+                rmBtn.addEventListener('click', function () { removeCustom(i); });
+                row.appendChild(rmBtn);
+            }
+
+            li.appendChild(row);
+
+            if (blurredIdx !== i && analysis.findings.length) {
+                const chips = document.createElement('span');
+                chips.className = 'chips';
+                analysis.findings.forEach(function (f) {
+                    const c = document.createElement('span');
+                    c.className = 'chip ' + f.tense;
+                    c.textContent = f.label + ': ' + f.form;
+                    chips.appendChild(c);
+                });
+                li.appendChild(chips);
+            }
+
+            const p = progress[text];
+            if (p && p.translation) {
+                const tr = document.createElement('span');
+                tr.className = 'translation';
+                tr.textContent = '🇧🇷 ' + p.translation;
+                li.appendChild(tr);
+            }
+
+            list.appendChild(li);
+        });
+
+        renderTabs();
+        renderProgress();
+    }
+
+    // ================= RECONHECIMENTO DE FALA =================
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recog = null;
+    let listening = false;
+
+    if (SpeechRecognition) {
+        recog = new SpeechRecognition();
+        recog.lang = 'en-US';
+        recog.interimResults = false;
+        recog.continuous = false;
+        recog.maxAlternatives = 1;
+
+        recog.addEventListener('start', function () {
+            listening = true;
+            status.classList.remove('error');
+            status.textContent = activeAction && activeAction.mode === 'dictation'
+                ? '🙈 Ditado: repita o que você ouviu!'
+                : '🎧 Ouvindo... fale agora!';
+        });
+
+        recog.addEventListener('result', function (event) {
+            let said = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) said += event.results[i][0].transcript;
+            }
+            said = said.trim();
+            if (said && activeAction) {
+                const text = unitPhrases(currentUnit)[activeAction.index];
+                const pct = Math.round(scoreMatch(text, said) * 100);
+                progress[text] = progress[text] || {};
+                const field = activeAction.mode === 'dictation' ? 'dScore' : 'score';
+                progress[text][field] = Math.max(progress[text][field] || 0, pct);
+                saveProgress();
+                if (pct >= 80) {
+                    status.classList.remove('error');
+                    status.textContent = '✅ Correto! (' + pct + '%) ' + stars(bestScore(text)) + ' — "' + said + '"';
+                } else {
+                    status.classList.add('error');
+                    status.textContent = '❌ ' + pct + '% correto. Ouça com 🔊 e tente de novo. Você disse: "' + said + '"';
+                }
+            }
+            activeAction = null;
+            blurredIdx = null;
+            try { recog.stop(); } catch (e) { /* ignore */ }
+            render();
+        });
+
+        recog.addEventListener('error', function (event) {
+            activeAction = null;
+            blurredIdx = null;
+            listening = false;
+            render();
+            status.classList.add('error');
+            if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                status.textContent = 'Microphone access failed: permission denied. Allow the microphone in the browser address bar.';
+            } else if (event.error === 'no-speech') {
+                status.textContent = 'Nenhuma fala detectada. Tente novamente.';
+            } else {
+                status.textContent = 'Erro: ' + event.error;
+            }
+        });
+
+        recog.addEventListener('end', function () {
+            listening = false;
+            blurredIdx = null;
+            render();
+        });
+    }
+
+    function startAction(index, mode) {
+        if (!recog) {
+            status.classList.add('error');
+            status.textContent = 'Speech recognition não é suportado neste navegador. Use Chrome ou Edge.';
+            return;
+        }
+        if (listening) { try { recog.stop(); } catch (e) { /* ignore */ } return; }
+
+        const text = unitPhrases(currentUnit)[index];
+        activeAction = { index: index, mode: mode };
+
+        if (mode === 'dictation') {
+            blurredIdx = index;
+            render();
+            status.classList.remove('error');
+            status.textContent = '🙈 Ouça com atenção...';
+            speak(text, function () { beginRecognition(); }, 0.85);
+        } else {
+            beginRecognition();
+        }
+    }
+
+    function beginRecognition() {
+        try {
+            recog.start();
+        } catch (e) { /* já está rodando */ }
+    }
+
+    // ================= TRADUÇÃO DA UNIDADE =================
+    async function translateOne(i) {
+        const text = unitPhrases(currentUnit)[i];
+        progress[text] = progress[text] || {};
+        if (progress[text].translation) { render(); return; }
+        status.classList.remove('error');
+        status.textContent = 'Traduzindo...';
+        try {
+            progress[text].translation = await translateText(text);
+            saveProgress();
+            status.textContent = 'Tradução pronta.';
+        } catch (e) {
+            status.classList.add('error');
+            status.textContent = 'Falha na tradução: verifique a internet e tente de novo.';
+        }
+        render();
+    }
+
+    translateUnitBtn.addEventListener('click', async function () {
+        translateUnitBtn.disabled = true;
+        const phrases = unitPhrases(currentUnit);
+        for (let i = 0; i < phrases.length; i++) {
+            progress[phrases[i]] = progress[phrases[i]] || {};
+            if (!progress[phrases[i]].translation) {
+                status.textContent = 'Traduzindo ' + (i + 1) + ' de ' + phrases.length + '...';
+                try {
+                    progress[phrases[i]].translation = await translateText(phrases[i]);
+                    saveProgress();
+                    render();
+                } catch (e) {
+                    status.classList.add('error');
+                    status.textContent = 'Tradução parou na frase ' + (i + 1) + '. Tente novamente.';
+                    translateUnitBtn.disabled = false;
+                    return;
+                }
+            }
+        }
+        status.classList.remove('error');
+        status.textContent = 'Unidade traduzida! 🌐';
+        translateUnitBtn.disabled = false;
+    });
+
+    // ================= EXPORTAR TUDO COMO TEXTO =================
+    document.getElementById('downloadAllBtn').addEventListener('click', function () {
+        const now = new Date().toLocaleString();
+        const lines = [
+            '=== 🎓 SPEECH TRAINING — NÍVEL 2 ===',
+            'Exportado em: ' + now,
+            ''
+        ];
+        let total = 0, mastered = 0;
+
+        UNITS.forEach(function (u, ui) {
+            lines.push('----------------------------------------');
+            lines.push(u.title.toUpperCase());
+            lines.push(u.desc);
+            lines.push('');
+            unitPhrases(ui).forEach(function (text, i) {
+                total++;
+                const sc = bestScore(text);
+                const ok = isMastered(text);
+                if (ok) mastered++;
+                const st = stars(sc);
+                lines.push((ui + 1) + '.' + (i + 1) + ' ' + (ok ? '✅ ' : '☐ ') +
+                    (sc > 0 ? '🎯' + sc + '% ' + (st ? st + ' ' : '') : '') + text);
+                const findings = analyzePhrase(text).findings;
+                if (findings.length) {
+                    lines.push('      🔤 Verbos: ' + findings.map(function (f) {
+                        return f.label + ' → ' + f.form;
+                    }).join(' | '));
+                }
+                const p = progress[text];
+                if (p && p.translation) {
+                    lines.push('      🇧🇷 ' + p.translation);
+                }
+            });
+            lines.push('');
+        });
+
+        const pct = total ? Math.round(mastered / total * 100) : 0;
+        lines.push('----------------------------------------');
+        lines.push('RESUMO: ' + mastered + ' de ' + total + ' frases dominadas (' + pct + '%)');
+
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'nivel2-progresso.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+        status.classList.remove('error');
+        status.textContent = '💾 Arquivo nivel2-progresso.txt salvo com todo o seu progresso!';
+    });
+
+    // ================= LIMPAR PROGRESSO =================
+    document.getElementById('clearUnitBtn').addEventListener('click', function () {
+        const unit = UNITS[currentUnit];
+        if (!confirm('Limpar pontuações e traduções desta unidade?\n\n' + unit.title)) return;
+        unitPhrases(currentUnit).forEach(function (text) {
+            delete progress[text];
+        });
+        saveProgress();
+        blurredIdx = null;
+        activeAction = null;
+        render();
+        status.classList.remove('error');
+        status.textContent = '🧹 Unidade limpa. Pode recomeçar!';
+    });
+
+    document.getElementById('clearAllBtn').addEventListener('click', function () {
+        if (!confirm('Apagar TODO o progresso do Nível 2 (todas as unidades)?')) return;
+        progress = {};
+        saveProgress();
+        blurredIdx = null;
+        activeAction = null;
+        render();
+        status.classList.remove('error');
+        status.textContent = '🗑️ Todo o progresso foi apagado.';
+    });
+
+    // ================= ADICIONAR / REMOVER FRASES PERSONALIZADAS =================
+    const newPhrases = document.getElementById('newPhrases');
+    const addBtn = document.getElementById('addBtn');
+
+    addBtn.addEventListener('click', function () {
+        const unitId = UNITS[currentUnit].id;
+        const lines = newPhrases.value.split(/\r?\n/).map(function (l) { return l.trim(); });
+        let added = 0, skipped = 0;
+        lines.forEach(function (line) {
+            if (!line) return;
+            if (unitPhrases(currentUnit).indexOf(line) !== -1) { skipped++; return; }
+            customPhrases[unitId] = customPhrases[unitId] || [];
+            customPhrases[unitId].push(line);
+            added++;
+        });
+        if (added) {
+            saveCustom();
+            render();
+        }
+        newPhrases.value = '';
+        status.classList.remove('error');
+        status.textContent = added
+            ? '➕ ' + added + ' frase(s) adicionada(s) nesta unidade' + (skipped ? ' · ' + skipped + ' já existia(m).' : '.')
+            : 'Nada para adicionar (linhas vazias ou frases já existentes nesta unidade).';
+    });
+
+    function removeCustom(index) {
+        const unitId = UNITS[currentUnit].id;
+        const listArr = unitPhrases(currentUnit);
+        const text = listArr[index];
+        if (text === undefined) return;
+        if (!confirm('Remover esta frase da unidade?\n\n"' + text + '"')) return;
+        const custom = customPhrases[unitId] || [];
+        const ci = custom.indexOf(text);
+        if (ci !== -1) custom.splice(ci, 1);
+        customPhrases[unitId] = custom;
+        delete progress[text]; // apaga pontuação/tradução dessa frase
+        saveCustom();
+        saveProgress();
+        blurredIdx = null;
+        activeAction = null;
+        render();
+        status.classList.remove('error');
+        status.textContent = '✖ Frase removida.';
+    }
+
+    render();
+})();
+</script>
+</body>
+</html>
